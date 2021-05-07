@@ -1,0 +1,960 @@
+
+<!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/A_first_splash -->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    
+    <title>Number guessing game</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+        
+        body {
+            width: 50%;
+            max-width: 800px;
+            min-width: 480px;
+            margin: 0 auto;
+        }
+        
+        .lastResult {
+            color: white;
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Number guessing game</h1>
+    <p>Nous avons choisi un pays aléatoire parmis 197. Voyez si vous pouvez trouver sa capitale en 3 essais ou moins. Nous vous donnerons la réponse à la fin. <!--Nous vous dirons si votre estimation était trop élevée ou trop basse.--></p>
+    <p id="target"></p>
+    <div class="form"> <label for="guessField">Enter a guess: </label><input type="text" id="guessField" class="guessField"></div>
+    <div class="resultParas">
+        <p class="guesses"></p>
+        <p class="lastResult"></p>
+        <p class="lowOrHi"></p>
+    </div>
+</body>
+<script>
+
+    // Your JavaScript goes here
+	
+    var randomNumber =  Math.floor(Math.random() * 197) + 0;
+	
+	var result = [
+
+		{
+		"pays": "allemagne",
+		"capitale" : "berlin"
+		},
+		{
+		"pays": "danemark",
+		"capitale" : "copenhague"
+		},
+		{
+		"pays": "espagne",
+		"capitale" : "madrid"
+		},
+		{
+		"pays": "france",
+		"capitale" : "paris"
+		},
+		{
+		"pays": "grece",
+		"capitale" : "athenes"
+		},
+		{
+		"pays": "irlande",
+		"capitale" : "dublin"
+		},
+		{
+		"pays": "islande",
+		"capitale" : "reykjaik"
+		},
+		{
+		"pays": "italie",
+		"capitale" : "rome"
+		},
+		{
+		"pays": "pays bas",
+		"capitale" : "amsterdam"
+		},
+		{
+		"pays": "pologne",
+		"capitale" : "varsovie"
+		},
+		{
+		"pays": "portugal",
+		"capitale" : "lisbonne"
+		},
+		{
+		"pays": "royaume uni",
+		"capitale" : "londres"
+		},
+		{
+		"pays": "russie",
+		"capitale" : "moscou"
+		},
+		{
+		"pays": "belgique",
+		"capitale" : "bruxelles"
+		},
+		{
+		"pays": "autriche",
+		"capitale" : "vienne"
+		},
+		{
+		"pays": "suisse",
+		"capitale" : "berne"
+		},
+		{
+		"pays": "norvege",
+		"capitale" : "oslo"
+		},
+		{
+		"pays": "suede",
+		"capitale" : "stockholm"
+		},
+		{
+		"pays": "finlande",
+		"capitale" : "helsinki"
+		},
+		{
+		"pays": "malte",
+		"capitale" : "la valette"
+		},
+		{
+		"pays": "andorre",
+		"capitale" : "andorre la vieille"
+		},
+		{
+		"pays": "chypre",
+		"capitale" : "nicosie"
+		},
+		{
+		"pays": "liechtenstein",
+		"capitale" : "vaduz"
+		},
+		{
+		"pays": "monaco",
+		"capitale" : "monaco"
+		},
+		{
+		"pays": "luxembourg",
+		"capitale" : "luxembourg"
+		},
+		{
+		"pays": "saint marin",
+		"capitale" : "saint marin"
+		},
+		{
+		"pays": "vatican",
+		"capitale" : "vatican"
+		},
+		{
+		"pays": "hongrie",
+		"capitale" : "budapest"
+		},
+		{
+		"pays": "roumanie",
+		"capitale" : "bucarest"
+		},
+		{
+		"pays": "bulgarie",
+		"capitale" : "sofia"
+		},
+		{
+		"pays": "serbie",
+		"capitale" : "belgrade"
+		},
+		{
+		"pays": "bosnie herzegovine",
+		"capitale" : "sarajevo"
+		},
+		{
+		"pays": "republique tcheque",
+		"capitale" : "prague"
+		},
+		{
+		"pays": "ukraine",
+		"capitale" : "kiev"
+		},
+		{
+		"pays": "bielorussie",
+		"capitale" : "minsk"
+		},
+		{
+		"pays": "croatie",
+		"capitale" : "zagreb"
+		},
+		{
+		"pays": "albanie",
+		"capitale" : "tirana"
+		},
+		{
+		"pays": "moldavie",
+		"capitale" : "chisinau"
+		},
+		{
+		"pays": "slovaquie",
+		"capitale" : "bratislava"
+		},
+		{
+		"pays": "lituanie",
+		"capitale" : "vilnius"
+		},
+		{
+		"pays": "lettonie",
+		"capitale" : "riga"
+		},
+		{
+		"pays": "estonie",
+		"capitale" : "tallinn"
+		},
+		{
+		"pays": "kosovo",
+		"capitale" : "pristina"
+		},
+		{
+		"pays": "macedoine",
+		"capitale" : "skopje"
+		},
+		{
+		"pays": "montenegro",
+		"capitale" : "podgorica"
+		},
+		{
+		"pays": "slovenie",
+		"capitale" : "ljubljana"
+		},
+		{
+		"pays": "azerbaidjan",
+		"capitale" : "bakou"
+		},
+		{
+		"pays": "georgie",
+		"capitale" : "tbilissi"
+		},
+		{
+		"pays": "kazakhstan",
+		"capitale" : "astana"
+		},
+		{
+		"pays": "ouzbekistan",
+		"capitale" : "tachkent"
+		},
+		{
+		"pays": "turkmenistan",
+		"capitale" : "achgabat"
+		},
+		{
+		"pays": "armenie",
+		"capitale" : "erevan"
+		},
+		{
+		"pays": "kirghizistan",
+		"capitale" : "bichkek"
+		},
+		{
+		"pays": "tadjikistan",
+		"capitale" : "douchanbe"
+		},
+		{
+		"pays": "afghanistan",
+		"capitale" : "kaboul"
+		},
+		{
+		"pays": "arabie saoudite",
+		"capitale" : "riyad"
+		},
+		{
+		"pays": "irak",
+		"capitale" : "bagdad"
+		},
+		{
+		"pays": "iran",
+		"capitale" : "teheran"
+		},
+		{
+		"pays": "israel",
+		"capitale" : "tel aviv"
+		},
+		{
+		"pays": "jordanie",
+		"capitale" : "amman"
+		},
+		{
+		"pays": "koweit",
+		"capitale" : "koweit"
+		},
+		{
+		"pays": "liban",
+		"capitale" : "beyrouth"
+		},
+		{
+		"pays": "oman",
+		"capitale" : "mascate"
+		},
+		{
+		"pays": "pakistan",
+		"capitale" : "islamabad"
+		},
+		{
+		"pays": "palestine",
+		"capitale" : "jerusalem est"
+		},
+		{
+		"pays": "syrie",
+		"capitale" : "damas"
+		},
+		{
+		"pays": "turquie",
+		"capitale" : "ankara"
+		},
+		{
+		"pays": "yemen",
+		"capitale" : "sanaa"
+		},
+		{
+		"pays": "algerie",
+		"capitale" : "alger"
+		},
+		{
+		"pays": "egypte",
+		"capitale" : "le caire"
+		},
+		{
+		"pays": "libye",
+		"capitale" : "tripoli"
+		},
+		{
+		"pays": "maroc",
+		"capitale" : "rabat"
+		},
+		{
+		"pays": "tunisie",
+		"capitale" : "tunis"
+		},
+		{
+		"pays": "bahrein",
+		"capitale" : "manama"
+		},
+		{
+		"pays": "emirats arabes unis",
+		"capitale" : "abu dhabi"
+		},
+		{
+		"pays": "qatar",
+		"capitale" : "doha"
+		},
+		{
+		"pays": "bangladesh",
+		"capitale" : "dacca"
+		},
+		{
+		"pays": "birmanie",
+		"capitale" : "naypyidaw"
+		},
+		{
+		"pays": "cambodge",
+		"capitale" : "phnom penh"
+		},
+		{
+		"pays": "chine",
+		"capitale" : "pekin" // Beijing
+		},
+		{
+		"pays": "coree du nord",
+		"capitale" : "pyongyang"
+		},
+		{
+		"pays": "coree du sud",
+		"capitale" : "seoul"
+		},
+		{
+		"pays": "inde",
+		"capitale" : "new delhi"
+		},
+		{
+		"pays": "sri lanka",
+		"capitale" : "sri jayawardenapura"
+		},
+		{
+		"pays": "japon",
+		"capitale" : "tokyo"
+		},
+		{
+		"pays": "laos",
+		"capitale" : "vientiane"
+		},
+		{
+		"pays": "mongolie",
+		"capitale" : "oulan bator"
+		},
+		{
+		"pays": "taiwan",
+		"capitale" : "taipei"
+		},
+		{
+		"pays": "thailande",
+		"capitale" : "bangkok"
+		},
+		{
+		"pays": "vietnam",
+		"capitale" : "hanoi"
+		},
+		{
+		"pays": "maldives",
+		"capitale" : "male"
+		},
+		{
+		"pays": "bhoutan",
+		"capitale" : "thimbu"
+		},
+		{
+		"pays": "brunei",
+		"capitale" : "bandar seri begawan"
+		},
+		{
+		"pays": "nepal",
+		"capitale" : "katmandou"
+		},
+		{
+		"pays": "singapour",
+		"capitale" : "singapour"
+		},
+		{
+		"pays": "indonesie",
+		"capitale" : "jakarta"
+		},
+		{
+		"pays": "malaisie",
+		"capitale" : "kuala lumpur"
+		},
+		{
+		"pays": "philippines",
+		"capitale" : "manille"
+		},
+		{
+		"pays": "australie",
+		"capitale" : "canberra"
+		},
+		{
+		"pays": "fidji",
+		"capitale" : "suva"
+		},
+		{
+		"pays": "kiribati",
+		"capitale" : "tarawa"
+		},
+		{
+		"pays": "marshall",
+		"capitale" : "majuro"
+		},
+		{
+		"pays": "micronesie",
+		"capitale" : "palikir"
+		},
+		{
+		"pays": "nauru",
+		"capitale" : "yaren"
+		},
+		{
+		"pays": "nouvelle zelande",
+		"capitale" : "wellington"
+		},
+		{
+		"pays": "palaos",
+		"capitale" : "melekeok"
+		},
+		{
+		"pays": "papouasie nouvelle guinee",
+		"capitale" : "port moresby"
+		},
+		{
+		"pays": "salomon",
+		"capitale" : "honiara"
+		},
+		{
+		"pays": "samoa",
+		"capitale" : "apia"
+		},
+		{
+		"pays": "timor oriental",
+		"capitale" : "dili"
+		},
+		{
+		"pays": "tonga",
+		"capitale" : "nukualofa"
+		},
+		{
+		"pays": "tuvalu",
+		"capitale" : "fanafuti"
+		},
+		{
+		"pays": "vanuatu",
+		"capitale" : "port vila"
+		},
+		{
+		"pays": "afrique du sud",
+		"capitale" : "pretoria"
+		},
+		{
+		"pays": "angola",
+		"capitale" : "luanda"
+		},
+		{
+		"pays": "botswana",
+		"capitale" : "gaborone"
+		},
+		{
+		"pays": "burkina faso",
+		"capitale" : "ouagadougou"
+		},
+		{
+		"pays": "cameroun",
+		"capitale" : "yaounde"
+		},
+		{
+		"pays": "republique du congo",
+		"capitale" : "brazzaville"
+		},
+		{
+		"pays": "cote ivoire",
+		"capitale" : "yamoussoukro"
+		},
+		{
+		"pays": "djibouti",
+		"capitale" : "djibouti"
+		},
+		{
+		"pays": "erythree",
+		"capitale" : "asmara"
+		},
+		{
+		"pays": "ethiopie",
+		"capitale" : "addis abeba"
+		},
+		{
+		"pays": "gabon",
+		"capitale" : "libreville"
+		},
+		{
+		"pays": "ghana",
+		"capitale" : "accra"
+		},
+		{
+		"pays": "guinee",
+		"capitale" : "conakry"
+		},
+		{
+		"pays": "kenya",
+		"capitale" : "nairobi"
+		},
+		{
+		"pays": "liberia",
+		"capitale" : "monrovia"
+		},
+		{
+		"pays": "madagascar",
+		"capitale" : "antananarivo"
+		},
+		{
+		"pays": "mali",
+		"capitale" : "bamako"
+		},
+		{
+		"pays": "mauritanie",
+		"capitale" : "nouakchott"
+		},
+		{
+		"pays": "mozambique",
+		"capitale" : "maputo"
+		},
+		{
+		"pays": "namibie",
+		"capitale" : "windhoek"
+		},
+		{
+		"pays": "niger",
+		"capitale" : "niamey"
+		},
+		{
+		"pays": "nigeria",
+		"capitale" : "abuja"
+		},
+		{
+		"pays": "ouganda",
+		"capitale" : "kampala"
+		},
+		{
+		"pays": "republique centreafricaine",
+		"capitale" : "bangui"
+		},
+		{
+		"pays": "republique democratique du congo",
+		"capitale" : "kinshasa"
+		},
+		{
+		"pays": "senegal",
+		"capitale" : "dakar"
+		},
+		{
+		"pays": "sierra leone",
+		"capitale" : "freetown"
+		},
+		{
+		"pays": "somalie",
+		"capitale" : "mogadiscio"
+		},
+		{
+		"pays": "soudan",
+		"capitale" : "khartoum"
+		},
+		{
+		"pays": "soudan du sud",
+		"capitale" : "djouba"
+		},
+		{
+		"pays": "tanzanie",
+		"capitale" : "dodoma"
+		},
+		{
+		"pays": "tchad",
+		"capitale" : "djamena"
+		},
+		{
+		"pays": "zambie",
+		"capitale" : "lusaka"
+		},
+		{
+		"pays": "zimbabwe",
+		"capitale" : "harare"
+		},
+		{
+		"pays": "sao tome et principe",
+		"capitale" : "sao tome"
+		},
+		{
+		"pays": "seychelles",
+		"capitale" : "victoria"
+		},
+		{
+		"pays": "comores",
+		"capitale" : "moroni"
+		},
+		{
+		"pays": "ile maurice",
+		"capitale" : "port louis"
+		},
+		{
+		"pays": "cap vert",
+		"capitale" : "praia"
+		},
+		{
+		"pays": "benin",
+		"capitale" : "porto novo"
+		},
+		{
+		"pays": "burundi",
+		"capitale" : "bujumbura"
+		},
+		{
+		"pays": "gambie",
+		"capitale" : "banjul"
+		},
+		{
+		"pays": "guinee equatoriale",
+		"capitale" : "malabo"
+		},
+		{
+		"pays": "guinee bissau",
+		"capitale" : "bissau"
+		},
+		{
+		"pays": "lesotho",
+		"capitale" : "maseru"
+		},
+		{
+		"pays": "malawi",
+		"capitale" : "lilongwe"
+		},
+		{
+		"pays": "rwanda",
+		"capitale" : "kigali"
+		},
+		{
+		"pays": "swaziland",
+		"capitale" : "mbabane"
+		},
+		{
+		"pays": "togo",
+		"capitale" : "lome"
+		},
+		{
+		"pays": "antigua et barbuda",
+		"capitale" : "saint john"
+		},
+		{
+		"pays": "bahamas",
+		"capitale" : "nassau"
+		},
+		{
+		"pays": "barbade",
+		"capitale" : "bridgetown"
+		},
+		{
+		"pays": "dominique",
+		"capitale" : "roseau"
+		},
+		{
+		"pays": "grenade",
+		"capitale" : "saint george"
+		},
+		{
+		"pays": "haiti",
+		"capitale" : "port au prince"
+		},
+		{
+		"pays": "jamaique",
+		"capitale" : "kingston"
+		},
+		{
+		"pays": "republique dominicaine",
+		"capitale" : "saint domingue"
+		},
+		{
+		"pays": "saint kitts et nevis",
+		"capitale" : "basseterre"
+		},
+		{
+		"pays": "saint vincent et les grenadines",
+		"capitale" : "kingstown"
+		},
+		{
+		"pays": "sainte lucie",
+		"capitale" : "castries"
+		},
+		{
+		"pays": "trinite et tobago",
+		"capitale" : "port d'espagne"
+		},
+		{
+		"pays": "etats unis",
+		"capitale" : "washington"
+		},
+		{
+		"pays": "canada",
+		"capitale" : "ottawa"
+		},
+		{
+		"pays": "costa rica",
+		"capitale" : "san jose"
+		},
+		{
+		"pays": "cuba",
+		"capitale" : "la havane"
+		},
+		{
+		"pays": "equateur",
+		"capitale" : "quito"
+		},
+		{
+		"pays": "guatemala",
+		"capitale" : "guatemala"
+		},
+		{
+		"pays": "honduras",
+		"capitale" : "tegucigalpa"
+		},
+		{
+		"pays": "mexique",
+		"capitale" : "mexico"
+		},
+		{
+		"pays": "nicaragua",
+		"capitale" : "managua"
+		},
+		{
+		"pays": "panama",
+		"capitale" : "panama"
+		},
+		{
+		"pays": "salvador",
+		"capitale" : "san salvador"
+		},
+		{
+		"pays": "belize",
+		"capitale" : "belmopan"
+		},
+		{
+		"pays": "argentine",
+		"capitale" : "buenos aires"
+		},
+		{
+		"pays": "bolivie",
+		"capitale" : "sucre"
+		},
+		{
+		"pays": "bresil",
+		"capitale" : "brasilia"
+		},
+		{
+		"pays": "chili",
+		"capitale" : "santiago"
+		},
+		{
+		"pays": "colombie",
+		"capitale" : "bogota"
+		},
+		{
+		"pays": "paraguay",
+		"capitale" : "asuncion"
+		},
+		{
+		"pays": "perou",
+		"capitale" : "lima"
+		},
+		{
+		"pays": "uruguay",
+		"capitale" : "montevideo"
+		},
+		{
+		"pays": "venezuela",
+		"capitale" : "caracas"
+		},
+		{
+		"pays": "guyana",
+		"capitale" : "georgetown"
+		},
+		{
+		"pays": "suriname",
+		"capitale" : "paramaribo"
+		}
+
+	]
+
+	console.log(result);
+	
+	document.getElementById("target").innerHTML = "Quel est la capitale de : " + result[randomNumber].pays;
+	
+    var guesses = document.querySelector('.guesses');
+    var lastResult = document.querySelector('.lastResult');
+    var lowOrHi = document.querySelector('.lowOrHi');
+    
+    var guessField = document.querySelector('.guessField');
+    var guessCount = 1;
+    var resetButton;
+	var userGuess = 0;
+	
+
+    function checkGuess() {
+	
+				userGuess = guessField.value;
+			  
+				if (guessCount === 1) {
+				
+				guesses.textContent = 'Previous guesses: ';
+				}
+				
+				console.log('userGuess: '+userGuess)
+				
+				guesses.textContent += userGuess ===  '' ? 0 + ' ' : userGuess + ' ';
+				
+					
+					if (userGuess === result[randomNumber].capitale) {
+					
+						userGuess = 1
+						
+					}
+				
+				
+				if (userGuess === 1) {
+					lastResult.textContent = 'Congratulations ! You got it right !';
+					lastResult.style.backgroundColor = 'green';
+					lowOrHi.textContent = '';
+					guessField.disabled = true;
+				}
+				else if (guessCount === 3)
+				{
+					lastResult.textContent = '!!! GAME OVER !!! ('+guessCount+')';
+					document.getElementById("target").innerHTML += " | Réponse : "+result[randomNumber].capitale
+					lowOrHi.textContent = '';
+					guessField.disabled = true;
+				}
+				else
+				{
+					lastResult.textContent = 'Wrong ! ('+guessCount+')';
+					lastResult.style.backgroundColor = 'red';
+				}
+				
+				guessCount++;
+				guessField.value = '';
+				
+				// console.log('guessCount: '+guessCount);
+				// console.log('userGuess: '+userGuess);
+				
+	}
+	
+	// guessSubmit.addEventListener('click', checkGuess);
+	
+		document.addEventListener("keyup", function (event) {
+
+			if ( event.keyCode === 13 && guessCount < 4 &&  userGuess !== 1  ) {
+				
+				checkGuess();
+					
+			}else if ( guessCount === 4 ||  userGuess === 1  ){
+				
+				// console.log('userGuess2: '+userGuess);
+				
+				resetGame();
+			
+			}
+		  
+		})
+	
+	
+
+    function setGameOver() {
+
+		guessField.disabled = true;
+
+		resetButton = document.createElement('button');
+		resetButton.textContent = 'Start new game';
+		document.body.appendChild(resetButton);
+		resetButton.addEventListener('click', resetGame);
+	  
+    }
+
+    function resetGame() {
+	
+		guessCount = 1;
+		userGuess = 0;
+		
+		var resetParas = document.querySelectorAll('.resultParas p');
+		for(var i = 0 ; i < resetParas.length ; i++) {
+		resetParas[i].textContent='';
+		}
+
+	// resetButton.parentNode.removeChild(resetButton);
+		
+		guessField.disabled = false;
+
+		guessField.value='';
+		guessField.focus();
+		lastResult.style.backgroundColor='white';
+
+		randomNumber = Math.floor(Math.random() * 197) + 0;
+
+		document.getElementById("target").innerHTML = "Quel est la capitale de : " + result[randomNumber].pays;
+	  
+    }
+	
+</script>
+
+</html>
+
